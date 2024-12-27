@@ -1,19 +1,28 @@
 package com.arun.PetShop.factory;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
 import com.arun.PetShop.exception.AllReadyCreatedException;
 import com.arun.PetShop.model.User;
 import com.arun.PetShop.repository.UserRepository;
 import com.arun.PetShop.request.RegistractionRequest;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
+@Primary
 public class SimpleUserFactory  implements UserFactory{
 
+	@Qualifier("userRepository")
     private final UserRepository userRepository;
+	@Qualifier("adminFactory")
     private final AdminFactory  adminFactory;
+	@Qualifier("patientFactory")
     private final PatientFactory patientFactory;
+	 @Qualifier("veteriarianFactory")
     private final VeteriarianFactory veteriarianFactory;
     @Override
     public User createUser(RegistractionRequest request) {
